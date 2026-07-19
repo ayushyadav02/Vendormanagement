@@ -3,8 +3,14 @@ import toast from 'react-hot-toast';
 import store from '../store';
 import { logout } from '../store/slices/authSlice';
 
+let baseURL = import.meta.env.VITE_API_URL || '/api';
+if (baseURL.endsWith('/')) baseURL = baseURL.slice(0, -1);
+if (baseURL.startsWith('http') && !baseURL.endsWith('/api')) {
+  baseURL += '/api';
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL,
   timeout: 30000,
   headers: { 'Content-Type': 'application/json' },
 });
